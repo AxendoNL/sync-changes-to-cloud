@@ -17,7 +17,7 @@ runs:
       with:
         node-version: '14'
     - name: Install kudusync
-      run: npm install kudusync
+      run: npm install -g kudusync
       shell: powershell
     - name: Clone cloud repo
       run: git clone ${{ inputs.cloud-repository-url}} ${{ inputs.to-dir }}
