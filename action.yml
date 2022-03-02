@@ -1,0 +1,32 @@
+name: 'Sync and push to Umbraco Cloud'
+description: 'Sync and push to Umbraco Cloud'
+inputs:
+  cloud-repository-url:
+    description: 'Url of the cloud repository to sync'
+    required: true
+  from-dir:
+    description: 'Path to the current repository directory'
+    required: true
+  to-dir:
+    description: 'Path to the sync repository directory'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    - name: Install kudusync
+      run: npm install kudusync
+      shell: powershell
+    - name: Clone cloud repo
+      run: git clone ${{ inputs.cloud-repository-url}} ${{ inputs.to-dir }}
+      shell: powershell
+    - name: Kudusync
+      run: kudusync --fromDir ${{ inputs.from-dir }} --toDir ${{ inputs.to-dir }} --ignore ".git" --nextManifest ../kudusyncmanifest.txt --ignoreManifest
+      shell: powershell
+    - name: Commit and push to Cloud
+      run: |
+            cd ${{ inputs.to-dir }}
+            C:\.\DeploymentScripts\CommitAndPushToCloud.ps1 "${{github.run_number}}"
+      shell: powershell
