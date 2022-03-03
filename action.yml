@@ -1,5 +1,5 @@
-name: 'Synchronize changes and push'
-description: 'Synchronize changes and push'
+name: 'Synchronize changes to cloud'
+description: 'Synchronize changes to cloud'
 inputs:
   synchronize-repository-url:
     description: 'Url of the cloud repository to sync'
