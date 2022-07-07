@@ -25,8 +25,8 @@ runs:
     - name: Create artifact for cloud
       run: |
             md -Force ..\cloud-artifact
-            md -Force ..\cloud-artifact\.git
-            Copy-Item .\.git ..\cloud-artifact\.git
+            Copy-Item .\.git ..\cloud-artifact
+            Copy-Item .\.git\* ..\cloud-artifact\.git -force -recurse
             Copy-Item .\*.web\* ..\cloud-artifact -force -recurse
       shell: powershell
     - name: Kudusync
