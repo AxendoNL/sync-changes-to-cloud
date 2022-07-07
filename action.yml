@@ -22,11 +22,11 @@ runs:
     - name: Clone cloud repo
       run: git clone ${{ inputs.cloud-repository-url}} ${{ inputs.to-dir }}
       shell: powershell
-    - name: Kudusync
-      run: kudusync --fromDir ${{ inputs.from-dir }} --toDir ${{ inputs.to-dir }} --ignore ".git" --nextManifest ../kudusyncmanifest.txt --ignoreManifest
-      shell: powershell
-    - name: Commit and push to Cloud
-      run: |
-            cd ${{ inputs.to-dir }}
-            C:\.\DeploymentScripts\CommitAndPushToCloud.ps1 "${{github.run_number}}"
-      shell: powershell
+    # - name: Kudusync
+    #   run: kudusync --fromDir ${{ inputs.from-dir }} --toDir ${{ inputs.to-dir }} --ignore ".git" --nextManifest ../kudusyncmanifest.txt --ignoreManifest
+    #   shell: powershell
+    # # - name: Commit and push to Cloud
+    # #   run: |
+    # #         cd ${{ inputs.to-dir }}
+    # #         C:\.\DeploymentScripts\CommitAndPushToCloud.ps1 "${{github.run_number}}"
+    # #   shell: powershell
