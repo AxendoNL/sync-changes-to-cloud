@@ -22,8 +22,15 @@ runs:
     - name: Clone cloud repo
       run: git clone ${{ inputs.cloud-repository-url}} ${{ inputs.to-dir }}
       shell: powershell
+    - name: Create artifact for cloud
+      run: |
+            md -Force ..\cloud-artifact
+            md - Force ..\cloud-artifact\.git
+            Copy-Item .\.git ..\cloud-artifact\.git
+            Copy-Item .\*.web\* ..\cloud-artifact -force -recurse
+      shell: powershell
     - name: Kudusync
-      run: kudusync --fromDir ${{ inputs.from-dir }} --toDir ${{ inputs.to-dir }} --ignore ".git;.github" --nextManifest ../kudusyncmanifest.txt --ignoreManifest
+      run: kudusync --fromDir ${{ inputs.from-dir }} --toDir ${{ inputs.to-dir }} --ignore ".git" --nextManifest ../kudusyncmanifest.txt --ignoreManifest
       shell: powershell
     - name: Commit and push to Cloud
       run: |
