@@ -22,9 +22,10 @@ runs:
             Copy-Item .\.git ..\cloud-artifact
             Copy-Item .\.git\* ..\cloud-artifact\.git -force -recurse
             Copy-Item .\*.web\* ..\cloud-artifact -force -recurse
+            Copy-Item .\*.site\* ..\cloud-artifact -force -recurse
       shell: powershell
     - name: Kudusync
-      run: kudusync --fromDir ..\cloud-artifact --toDir ..\cloud-repository --ignore ".git" --nextManifest ../kudusyncmanifest.txt --ignoreManifest
+      run: kudusync --fromDir ..\cloud-artifact --toDir ..\cloud-repository --ignore ".git;.github;nuget.config" --nextManifest ../kudusyncmanifest.txt --ignoreManifest
       shell: powershell
     - name: Commit and push to Cloud
       run: |
