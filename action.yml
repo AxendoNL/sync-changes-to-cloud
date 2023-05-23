@@ -13,6 +13,9 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Echo env variable
+      run: echo ${{env.app-test}}
+      shell: powershell 
     - uses: actions/setup-node@v2
       with:
         node-version: '14'
