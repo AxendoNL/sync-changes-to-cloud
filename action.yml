@@ -13,9 +13,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Echo env variable
-      run: echo ${{env.app-path}}
-      shell: powershell 
     - uses: actions/setup-node@v2
       with:
         node-version: '14'
@@ -26,12 +23,12 @@ runs:
       run: git clone ${{ inputs.cloud-repository-url}} ${{ inputs.to-dir }}
       shell: powershell
     - name: Kudusync
-      run: kudusync --fromDir ${{ inputs.from-dir }} --toDir ${{ inputs.to-dir }} --ignore ".git;.github" --nextManifest ../kudusyncmanifest.txt --ignoreManifest
+      run: kudusync --fromDir ${{ inputs.from-dir }} --toDir ${{ inputs.to-dir }} --ignore "${{ vars.TO_CLOUD_KUDUSYNC_IGNORE }}" --nextManifest ../kudusyncmanifest.txt --ignoreManifest
       shell: powershell
-#    - name: Create wwwroot .gitignore
-#      run: |
-#        New-Item -Path ${{ inputs.to-dir }}${{ vars.WWWROOT_PATH }} -Name ".gitignore" -Value "${{ vars.WWWROOT_GITIGNORE_RULES }}" -Force
-#      shell: powershell
+    - name: Create wwwroot .gitignore
+      run: |
+        New-Item -Path ${{ inputs.to-dir }}${{ vars.WWWROOT_PATH }} -Name ".gitignore" -Value "${{ vars.WWWROOT_GITIGNORE_RULES }}" -Force
+      shell: powershell
     - name: Commit and push to Cloud
       run: |
             cd ${{ inputs.to-dir }}
