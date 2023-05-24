@@ -30,7 +30,10 @@ runs:
         New-Item -Path ${{ inputs.to-dir }}${{ env.WWWROOT_PATH }} -Name ".gitignore" -Value "${{ env.WWWROOT_GITIGNORE_RULES }}" -Force
       shell: powershell
     - name: Copy Assets
-      run: Copy-Item -Path "${{ env.app-path }}/wwwroot/assets" -Destination "${{ inputs.to-dir }}/*/wwwroot/assets" -recurse -Force
+      run: | 
+        $dst = Get-ChildItem "${{ inputs.to-dir }}/*/wwwroot"
+        Select-Object -First 1 -Expand FullName     
+        Copy-Item -Path "${{ env.app-path }}/wwwroot/assets" -Destination "$($dst)/assets" -recurse -Force
       shell: powershell
     - name: Commit and push to Cloud
       run: |
