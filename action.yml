@@ -30,7 +30,7 @@ runs:
         New-Item -Path ${{ inputs.to-dir }}${{ env.WWWROOT_PATH }} -Name ".gitignore" -Value "${{ env.WWWROOT_GITIGNORE_RULES }}" -Force
       shell: powershell
     - name: Kudusync Assets
-      run: kudusync --fromDir ${{ env.app-path }}/wwwroot/assets --toDir ${{ inputs.to-dir }}${{ env.WWWROOT_PATH }} --ignore "${{ env.TO_CLOUD_KUDUSYNC_IGNORE }}" --nextManifest ../kudusyncmanifest.txt --ignoreManifest
+      run: kudusync --fromDir ${{ env.app-path }}/wwwroot/assets --toDir ${{ inputs.to-dir }}/Axendo.Umb.Volandis.AVH.Web/wwwroot/assets --ignore "${{ env.TO_CLOUD_KUDUSYNC_IGNORE }}" --nextManifest ../kudusyncmanifest.txt --ignoreManifest
       shell: powershell
     - name: Commit and push to Cloud
       run: |
