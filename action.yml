@@ -24,7 +24,7 @@ runs:
       shell: powershell
     - name: Create wwwroot .gitignore
       run: |
-        New-Item -Path ${{ inputs.app-path }}${{ env.WWWROOT_PATH }} -Name ".gitignore" -Value "${{ env.WWWROOT_GITIGNORE_RULES }}" -Force
+        New-Item -Path ${{ env.app-path }}${{ env.WWWROOT_PATH }} -Name ".gitignore" -Value "${{ env.WWWROOT_GITIGNORE_RULES }}" -Force
       shell: powershell
     - name: Kudusync
       run: kudusync --fromDir ${{ inputs.from-dir }} --toDir ${{ inputs.to-dir }} --ignore "${{ env.TO_CLOUD_KUDUSYNC_IGNORE }}" --nextManifest ../kudusyncmanifest.txt --ignoreManifest
