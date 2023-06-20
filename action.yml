@@ -33,7 +33,7 @@ runs:
       run: | 
         $dst = Get-ChildItem "${{ inputs.to-dir }}/*/wwwroot"
         Select-Object -First 1 -Expand FullName     
-        Copy-Item -Path "${{ env.app-path }}/wwwroot/assets" -Destination "$($dst)/assets" -recurse -Force
+        Copy-Item -Path "${{ env.app-path }}/wwwroot/assets" -Destination "$($dst)" -recurse -Force
       shell: powershell
     - name: Commit and push to Cloud
       run: |
