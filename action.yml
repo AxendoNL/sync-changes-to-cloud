@@ -7,12 +7,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-    - name: Install kudusync
-      run: npm install -g kudusync
-      shell: powershell
     - name: Clone cloud repo
       run: git clone ${{ inputs.cloud-repository-url}} ..\cloud-repository
       shell: powershell
@@ -24,8 +18,8 @@ runs:
             Copy-Item .\*.web\* ..\cloud-artifact -force -recurse
             Copy-Item .\*.site\* ..\cloud-artifact -force -recurse
       shell: powershell
-    - name: Kudusync
-      run: kudusync --fromDir ..\cloud-artifact --toDir ..\cloud-repository --ignore ".git;.github;nuget.config" --nextManifest ../kudusyncmanifest.txt --ignoreManifest
+    - name: Run KuduSync.Net
+      run: C:\.\DeploymentScripts\RunKuduSyncNet.ps1 "..\cloud-artifact" "..\cloud-repository" ".git;.github;nuget.config" "${{github.run_number}}"
       shell: powershell
     - name: Commit and push to Cloud
       run: |
