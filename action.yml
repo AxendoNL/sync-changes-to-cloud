@@ -13,18 +13,9 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-    # - name: Install kudusync
-      # run: npm install -g kudusync
-      # shell: powershell
     - name: Clone cloud repo
       run: git clone ${{ inputs.cloud-repository-url}} ${{ inputs.to-dir }}
       shell: powershell
-    # - name: Kudusync
-      # run: kudusync --fromDir ${{ inputs.from-dir }} --toDir ${{ inputs.to-dir }} --ignore "${{ env.TO_CLOUD_KUDUSYNC_IGNORE }}" --nextManifest ../kudusyncmanifest.txt --ignoreManifest
-      # shell: powershell
     - name: Run KuduSync.Net
       run: C:\.\DeploymentScripts\RunKuduSyncNet.ps1 "${{ inputs.from-dir }}" "${{ inputs.to-dir }}" "${{ env.TO_CLOUD_KUDUSYNC_IGNORE }}" "${{github.run_number}}"
       shell: powershell
