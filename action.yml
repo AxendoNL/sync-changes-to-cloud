@@ -29,7 +29,6 @@ runs:
       uses: iamazeem/substitute-action@v1
       env:
         Umbraco.CMS.RuntimeMinification.version: ${{github.run_number}}
-        Umbraco.CMS.RuntimeMinification.Version: ${{github.run_number}}
       with:
         input-files: '${{ inputs.from-dir }}/**/appsettings.json'
         
