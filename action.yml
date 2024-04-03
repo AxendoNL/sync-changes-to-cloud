@@ -18,19 +18,12 @@ runs:
       shell: powershell
       
       #substitute production appsettings entries to appsettings json file
-    #- name: App Settings Variable Substitution
-    #  uses: microsoft/variable-substitution@v1
-    #  with:
-    #    files: '${{ inputs.from-dir }}/**/appsettings.json'
-    #  env:
-    #    Umbraco.CMS.RuntimeMinification.version: ${{github.run_number}}
-
     - name: App Settings Variable Substitution
-      uses: iamazeem/substitute-action@v1
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: '${{ inputs.from-dir }}/**/appsettings.json'
       env:
         Umbraco.CMS.RuntimeMinification.version: ${{github.run_number}}
-      with:
-        input-files: '${{ inputs.from-dir }}/**/appsettings.json'
         
     - name: Run KuduSync.Net
       run: C:\.\DeploymentScripts\RunKuduSyncNet.ps1 "${{ inputs.from-dir }}" "${{ inputs.to-dir }}" "${{ env.TO_CLOUD_KUDUSYNC_IGNORE }}" "${{github.run_number}}"
